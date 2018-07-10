@@ -1,0 +1,98 @@
+<div class="container">
+  <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" *ngIf="isSignIn">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="panel-title">Inicia Sesion</div>
+        <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">¿Olvidaste la contraseña?</a></div>
+      </div>
+      <div style="padding-top:30px" class="panel-body" [formGroup]="userForm">
+        <div style="display:none;" id="login-alert" class="alert alert-danger col-sm-12"></div>
+        <div id="loginform" class="form-horizontal" role="form">
+          <div style="margin-bottom: 25px;" class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <input id="login-username" type="text" class="form-control"  value="" placeholder="correo" formControlName="email">
+          </div>
+          <div style="margin-bottom: 25px;" class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input id="login-password" type="password" class="form-control"  placeholder="password" formControlName="password">
+          </div>
+          <div class="input-group">
+            <div class="checkbox">
+              <label>
+                <input id="login-remember" type="checkbox"  value="1"> Recordarla
+              </label>
+            </div>
+          </div>
+          <div style="margin-top:10px" class="form-group">
+            <!-- Button -->
+            <div class="col-sm-12 controls">
+              <a id="btn-login" (click)="onSignin()" class="btn btn-success">Iniciar  </a>
+              <a id="btn-fblogin" href="#" class="btn btn-primary">Iniciar sesión con Facebook</a>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12 control">
+              <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                ¿No tienes una cuenta?
+                <a  (click)="isSignIn=false">
+                                            Registrate
+                                        </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" *ngIf="!isSignIn">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <div class="panel-title">Registrarte</div>
+      </div>
+      <div class="panel-body" [formGroup]="registerForm">
+        <div id="signupform" class="form-horizontal" role="form">
+          <div id="signupalert" style="display:none" class="alert alert-danger">
+            <p>Error:</p>
+            <span></span>
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-md-3 control-label" >Correo</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control" placeholder="Correo" formControlName="correo">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="firstname" class="col-md-3 control-label">Nombre</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control"  placeholder="Nombre" formControlName="nombre">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="apellido" class="col-md-3 control-label">Apellido</label>
+            <div class="col-md-9">
+              <input type="text" class="form-control" placeholder="apellido" formControlName="apellido">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-md-3 control-label">Contraseña</label>
+            <div class="col-md-9">
+              <input type="password" class="form-control" placeholder="Password" formControlName="contrasenia">
+            </div>
+          </div>
+          <div class="form-group">
+            <!-- Button -->
+            <div class="col-md-offset-3 col-md-9">
+              <button id="btn-signup" type="button" class="btn btn-info" (click)="onRegister()"><i class="icon-hand-right" ></i>Registrar</button>
+              <span style="margin-left:8px;">o</span>
+            </div>
+          </div>
+          <div style="border-top: 1px solid #999; padding-top:20px" class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+              <button id="btn-fbsignup" type="button" class="btn btn-primary"><i class="icon-facebook"></i> Iniciar sesión con Facebook</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

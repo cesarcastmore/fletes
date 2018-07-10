@@ -1,0 +1,17 @@
+<div class="left" [@touchMenu]="status" (mouseover)="overMenu($event)" (mouseout)="outMenu($event)">
+  <div class="item" >
+    <span class="glyphicon glyphicon-th-large"></span>
+  </div>
+  <div class="item active">
+    <span class="glyphicon glyphicon-th-list"></span> Все документы</div>
+  <div class="item">
+    <span class="glyphicon glyphicon-log-out"></span> Расходные накладные</div>
+  <div class="item">
+    <span class="glyphicon glyphicon-log-in"></span> Приходные накладные</div>
+  <div class="item">
+    <span class="glyphicon glyphicon-random"></span> Акты переоценки</div>
+  <div class="item" (click)="onSignOut()">
+    <span class="glyphicon glyphicon-remove"></span> Cerrar Sesion</div>
+</div>
+<div class="right" [ngStyle]="style">  <router-outlet></router-outlet>
+</div>

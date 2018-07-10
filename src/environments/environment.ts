@@ -4,5 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyD5EzD157rKZsQrITNVfAB2Ruj0ToJgvRI",
+    authDomain: "ionic-cadena.firebaseapp.com",
+    databaseURL: "https://ionic-cadena.firebaseio.com",
+    projectId: "ionic-cadena",
+    storageBucket: "ionic-cadena.appspot.com",
+    messagingSenderId: "627434895894"
+  }
 };

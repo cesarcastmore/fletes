@@ -13,22 +13,16 @@ th {
   background: #337ab7;
   display: inline-block;
   white-space: nowrap;
-  width: 50px;
-  transition: width 1s;
 }
 
 .right {
   background: #fff;
-  width: 350px;
   transition: width 1s;
   border-style: solid;
   border-color: #ccc;
   border-width: 1px;
 }
 
-.left:hover {
-  width: 250px;
-}
 
 .item:hover {
   background-color: #ccc;
