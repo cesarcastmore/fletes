@@ -34,11 +34,21 @@ export class FirestoreService {
   }
 
 
+  public getAll() {
+    this.itemsCollection = this.db.collection < any > (this.entity);
+
+    return this.itemsCollection;
+  }
+
   public createDocRef(entity: string, id: string) {
     this.itemsCollection = this.db.collection < any > (entity);
     return this.itemsCollection.doc(id).ref;
   }
 
+  public createDoc(entity: string, id: string) {
+    this.itemsCollection = this.db.collection < any > (entity);
+    return this.itemsCollection.doc(id).ref;
+  }
 
   public create(item: any): Observable < any > {
     return new Observable(observer => {
@@ -99,6 +109,22 @@ export class FirestoreService {
 
   }
 
+    public getEntity(entity: string, id: string): Observable < any > {
+    return new Observable(observer => {
+      this.itemsCollection = this.db.collection < any > (this.entity);
+      let doc = this.itemsCollection.doc(id);
+
+      doc.ref.get().then(documentSnapshot => {
+        let data = documentSnapshot.data();
+        observer.next(data);
+        observer.complete();
+
+      })
+
+    });
+
+  }
+
 
   public getDatafromDocRef(documentReference: firebase.firestore.DocumentReference): Observable < any > {
     return new Observable(observer => {
@@ -128,7 +154,7 @@ export class Query {
 
   }
 
-  public _where(key: string, expresion: any, value: any) {
+  public _where(key: any, expresion: any, value: any) {
     this._queryWhere.push(new QueryWhere(key, expresion, value));
 
   }

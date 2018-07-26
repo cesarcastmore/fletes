@@ -1,0 +1,54 @@
+
+
+.mat-toolbar{
+	background-color: #337ab7;
+}
+
+
+.text-center{
+	color: white;
+}
+
+
+.empresas-card {
+	padding-left: 40px;
+	margin-left: 40px;
+	margin-right: 40px;
+	margin-top: 40px;
+
+
+}
+
+.card-editar {
+	padding-right: 25%;
+	padding-left: 25%;
+
+}
+
+.text-center{
+	color: white;
+}
+
+
+
+.mat-header-row {
+ background-color: rgb(245, 245, 245);
+}
+
+.table-panel {
+ background-color: rgb(245, 245, 245);
+
+}
+.mat-toolbar{
+	background-color: #337ab7;
+}
+
+
+.navbar {
+  position: solid;
+}
+
+
+.mat-fab.mat-primary, .mat-mini-fab.mat-primary, .mat-raised-button.mat-primary{
+	background-color: #337ab7;
+}

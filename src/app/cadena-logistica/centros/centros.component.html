@@ -1,0 +1,119 @@
+<mat-toolbar>
+  <div style="margin-left: 90%">
+    <button mat-raised-button color="primary" (click)="nuevo()">Nuevo</button>
+  </div>
+</mat-toolbar>
+<div class="container">
+  <ul class="list-group">
+    <li class="list-group-item card-nuevo" [class.hide_list]="!isNew">
+      <h4>Ubicación</h4>
+      <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input type="text" class="form-control" [(ngModel)]="asyncSelected" [typeahead]="search" typeaheadOptionField="formatted_address" (typeaheadOnSelect)="onChoose($event)">
+              <span class="input-group-btn" placeholder="Buscar"> 
+        <button class="btn btn-default" type="button">Elegir</button>
+      </span>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="current_location">
+          hello
+          <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
+            <agm-marker [latitude]="current_location.lat" [longitude]="current_location.lng"></agm-marker>
+          </agm-map>
+        </div>
+      </div>
+      <h4>Datos</h4>
+      <div [formGroup]="centroForm">
+        <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" class="form-control" formControlName="nombre">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Personal</label>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+        <h4>Direccion</h4>
+        <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Calle</label>
+                <input type="text" class="form-control" formControlName="calle">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Numero</label>
+                <input type="text" class="form-control" formControlName="numero">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Colonia</label>
+                <input type="text" class="form-control" formControlName="colonia">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Codigo Postal</label>
+                <input type="text" class="form-control" formControlName="codigo_postal">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Municipio</label>
+                <input type="text" class="form-control" formControlName="municipio">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Estado</label>
+                <input type="text" class="form-control" formControlName="estado">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="guardar()">Guardar</button>
+      <button class="btn btn-primary" (click)="isNew=false">Cancelar</button>
+    </li>
+  </ul>
+  <ul class="list-group" *ngIf="!isNew">
+    <li class="list-group-item card-nuevo">
+      <li class="list-group-item" *ngFor="let centro of centros | async">
+        <div class="row">
+          <div class="col-md-6">
+            <agm-map [latitude]="centro.location.lat" [longitude]="centro.location.lng">
+              <agm-marker [latitude]="centro.location.lat" [longitude]="centro.location.lng"></agm-marker>
+            </agm-map>
+          </div>
+          <div class="col-md-6"> {{ centro.nombre }}
+          </div>
+        </div>
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="collapse navbar-collapse  pull-right" >
+              <button type="button" class="btn btn-default navbar-btn">Editar</button>
+                            <button type="button" class="btn btn-default navbar-btn">Borrar</button>
+
+            </div>
+          </div>
+        </nav>
+      </li>
+  </ul>
+</div>

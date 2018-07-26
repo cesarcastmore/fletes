@@ -10,23 +10,26 @@ th {
 }
 
 .left {
-  background: #337ab7;
+  background: rgb(25, 33, 43);
   display: inline-block;
   white-space: nowrap;
+  position: fixed;
+  width: 50px;
+  top: 0px;
+  z-index: 1;
 }
 
-.right {
+.center {
   background: #fff;
-  transition: width 1s;
-  border-style: solid;
+  border-style: block;
   border-color: #ccc;
   border-width: 1px;
+  position: solid;
+  margin-left: 50px;
 }
 
 
-.item:hover {
-  background-color: #ccc;
-}
+
 
 .left .glyphicon {
   margin: 15px;
@@ -47,40 +50,12 @@ span.glyphicon.glyphicon-refresh {
   height: 50px;
   overflow: hidden;
   color: #fff;
+  cursor: pointer;
 }
 
-.title {
-  background-color: #eee;
-  border-style: solid;
-  border-color: #ccc;
-  border-width: 1px;
-  box-sizing: border-box;
-}
 
-.type {
-  height: 47px;
-  ;
-}
-
-.date {
-  background-color: #f7f7f7
-}
-
-.docdate {
-  vertical-align: bottom !important;
-}
-
-.distr {
-  margin: 0 0 5px;
-  font-size: 12px;
-}
-
-.ndoc {
-  margin: 0 0 5px;
-}
-
-.storage {
-  margin: 0;
-  color: #aaa !important;
-  font-size: 12px;
+.fan-icon {
+    margin: 15px;
+    width: 20px;
+    color: white;
 }

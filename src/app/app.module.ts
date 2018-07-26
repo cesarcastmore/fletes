@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { MenuComponent, MenuHoverDirective } from './menu/menu.component';
 import { AuthService } from './services/auth.service';
 import { FirestoreService } from './services/firestore.service';
+import { GoogleApiService } from './services/google-api.service';
 
 
 import { AngularFireModule } from 'angularfire2';
@@ -18,7 +19,9 @@ import { environment } from '../environments/environment';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './/app-routing.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+import { HttpModule, JsonpModule } from '@angular/http';
 
 
 @NgModule({
@@ -26,8 +29,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppComponent,
     LoginComponent,
     MenuComponent,
-    MenuHoverDirective 
-    ],
+    MenuHoverDirective
+  ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
@@ -36,9 +39,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, AppRoutingModule, // imports firebase/storage only neede
     RouterModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Angular2FontawesomeModule,
+    HttpModule
   ],
-  providers: [AuthService, FirestoreService],
+  providers: [AuthService, FirestoreService, GoogleApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

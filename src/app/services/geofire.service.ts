@@ -31,7 +31,7 @@ export class GeofireService {
     });
 
   }
-
+/*
 
   public getLocations(center: any, radius: number): Observable < any > {
     return new Observable(observer => {
@@ -62,5 +62,5 @@ export class GeofireService {
 
     });
 
-  }
+  }*/
 }

@@ -1,0 +1,30 @@
+<mat-toolbar>
+  <span class="text-center">Perfil</span>
+</mat-toolbar>
+<div class="panel panel-primary" *ngIf="perfilForm">
+  <div class="panel-body" [formGroup]="perfilForm">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" class="form-control" formControlName="nombre">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Apellido</label>
+            <input type="text" class="form-control" formControlName="apellido">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Permiso</label>
+            <input type="text" class="form-control" formControlName="permiso">
+          </div>
+        </div>
+      </div>
+    <button class="btn btn-primary" (click)="save()">Guardar</button>
+  </div>
+</div>

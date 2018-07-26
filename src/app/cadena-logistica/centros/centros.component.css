@@ -1,0 +1,38 @@
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+
+.bs-callout-info {
+  border-left-color: #1b809e;
+}
+
+.bs-callout-info h4 {
+  color: #1b809e;
+}
+
+
+.card-nuevo {
+  border: none;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+}
+
+.hide_list {
+  display: none;
+}
+
+
+.input-group{
+	padding-bottom: 20px;
+}
+
+agm-map {
+  height: 300px;
+}

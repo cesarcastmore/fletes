@@ -1,4 +1,57 @@
 <mat-toolbar>
-  <span>My Application</span>
+  <span class="text-center">Usuarios</span>
 </mat-toolbar>
-sdsd
+
+<div class="usuarios-card">
+  <div class="panel panel-default table-panel">
+    <div class="panel-body">
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.nombre}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="apellido">
+          <mat-header-cell *matHeaderCellDef> Apellido </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.apellido}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="correo">
+          <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.correo}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="permiso">
+          <mat-header-cell *matHeaderCellDef> Permiso </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.permiso}} </mat-cell>
+        </ng-container>
+         <ng-container matColumnDef="empresa">
+          <mat-header-cell *matHeaderCellDef> Empresa </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{getEmpresa(element.empresa_id)}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-icon-button [matMenuTriggerFor]="menu_permisos">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu_permisos="matMenu">
+              <button mat-menu-item *ngFor="let p of permisos" (click)="guardarPermiso(element, p)">
+                <span>{{p}}</span>
+              </button>
+            </mat-menu>
+            <button mat-icon-button [matMenuTriggerFor]="menu_empresas">
+              <fa [name]="'building'"></fa>
+            </button>
+            <mat-menu #menu_empresas="matMenu">
+              <button mat-menu-item *ngFor="let emp of empresas" (click)="guardarEmpresa(element, emp)">
+                <span>{{emp.nombre}}</span>
+              </button>
+            </mat-menu>
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<mat-toolbar>
+  <span class="text-center">Empresas</span>
+</mat-toolbar>
+<div class="empresas-card">
+  <div class="panel panel-default table-panel">
+    <div class="panel-body">
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="rfc">
+          <mat-header-cell *matHeaderCellDef> RFC </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.rfc}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef>
+            <button mat-raised-button color="primary" (click)="nuevo(template)">Nuevo</button>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" [formGroup]="empresaForm">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" class="form-control" formControlName="nombre">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>RFC</label>
+          <input type="text" class="form-control" formControlName="rfc">
+        </div>
+      </div>
+    </div>
+          <button class="btn btn-primary" (click)="guardar()">Guardar</button>
+
+  </div>
+</ng-template>

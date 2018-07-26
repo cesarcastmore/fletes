@@ -1,5 +1,5 @@
 <ng-template [ngIf]="isAuthenticated">
-  <app-menu></app-menu>
+  <app-menu [menus]="menus"></app-menu>
 </ng-template>
 <ng-template [ngIf]="!isAuthenticated">
   <app-login></app-login>

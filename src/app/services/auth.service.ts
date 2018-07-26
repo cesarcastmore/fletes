@@ -34,6 +34,20 @@ export class AuthService {
       password);
   }
 
+  signInWithGoogle() {
+    return this.afAuth.auth.signInWithPopup(
+      new firebase.auth.GoogleAuthProvider()
+    )
+  }
+
+
+  signInWithFacebook() {
+    return this.afAuth.auth.signInWithPopup(
+      new firebase.auth.FacebookAuthProvider()
+    )
+  }
+
+
   signUp(email, password) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }

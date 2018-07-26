@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   public registerForm: FormGroup;
 
   public isSignIn: boolean = true;
+  public error: any;
 
 
   constructor(private authService: AuthService,
@@ -42,14 +43,24 @@ export class LoginComponent implements OnInit {
   }
 
   onSignin() {
+
+    this.error = null;
     this.authService.signInWithEmail(this.userForm.value.email, this.userForm.value.password)
-      .then(data => {})
-      .catch(error => {});
+      .then(data => {
+
+
+      })
+      .catch(error => {
+        this.error = error.message;
+
+      });
   }
+
 
 
   public onRegister() {
 
+    this.error = null;
 
     this.authService.signUp(this.registerForm.value.correo, this.registerForm.value.contrasenia)
       .then(data => {
@@ -66,7 +77,9 @@ export class LoginComponent implements OnInit {
 
 
       })
-      .catch(error => {});
+      .catch(error => {
+        this.error = error.message;
+      });
 
   }
 

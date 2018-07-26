@@ -5,7 +5,8 @@ import {
   HostListener,
   Renderer,
   ElementRef,
-  HostBinding
+  HostBinding,
+  Input
 } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import {
@@ -44,6 +45,7 @@ export class MenuComponent implements OnInit {
 
 
   public status: string = 'inactive';
+  @Input() menus: any[];
 
   constructor(private authService: AuthService) {
 
@@ -53,16 +55,13 @@ export class MenuComponent implements OnInit {
 
 
   onSignOut() {
-    console.log("fsdddd");
     this.authService.signOut();
   }
 
  overMenu(event){
-   console.log("over");
    this.status='active';
  }
  outMenu(event){
-   console.log("over");
    this.status='inactive';
  }
 
@@ -82,12 +81,10 @@ export class MenuHoverDirective {
   }
 
   @HostListener('mouseover') onMouseOver() {
-    console.log("moverover");
     this.hover = true;
   }
 
   @HostListener('mouseout') onMouseOut() {
-    console.log("mouseOut");
     this.hover = false;
   }
 }
