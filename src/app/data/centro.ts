@@ -8,6 +8,8 @@ export class Centro {
   municipio: string;
   empresa_id: string;
   estado: string;
+  id: string;
+  personal_id: string;
 
   location: any;
 
@@ -28,6 +30,7 @@ export class Centro {
     this.estado = null;
     this.municipio = null;
     this.pais = null;
+    this.personal_id= null;
 
     console.log(address_components);
 

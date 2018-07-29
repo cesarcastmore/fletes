@@ -1,11 +1,11 @@
 <mat-toolbar>
   <div style="margin-left: 90%">
-    <button mat-raised-button color="primary" (click)="nuevo()">Nuevo</button>
+    <button mat-raised-button color="info" (click)="nuevo()" *ngIf="status== 'list'">Nuevo</button>
   </div>
 </mat-toolbar>
 <div class="container">
   <ul class="list-group">
-    <li class="list-group-item card-nuevo" [class.hide_list]="!isNew">
+    <li class="list-group-item card-nuevo" [class.hide_list]="!(status=='new' || status=='edit') ">
       <h4>Ubicación</h4>
       <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
         <div class="row">
@@ -19,7 +19,6 @@
           </div>
         </div>
         <div *ngIf="current_location">
-          hello
           <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
             <agm-marker [latitude]="current_location.lat" [longitude]="current_location.lng"></agm-marker>
           </agm-map>
@@ -38,7 +37,9 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Personal</label>
-                <input type="text" class="form-control">
+                <select class="form-control" formControlName="personal_id">
+                  <option *ngFor="let u of usuarios" [ngValue]="u.id">{{ u.nombre }}</option>
+                </select>
               </div>
             </div>
           </div>
@@ -90,10 +91,10 @@
         </div>
       </div>
       <button class="btn btn-primary" (click)="guardar()">Guardar</button>
-      <button class="btn btn-primary" (click)="isNew=false">Cancelar</button>
+      <button class="btn btn-primary" (click)="status='list'">Cancelar</button>
     </li>
   </ul>
-  <ul class="list-group" *ngIf="!isNew">
+  <ul class="list-group" *ngIf="status=='list'">
     <li class="list-group-item card-nuevo">
       <li class="list-group-item" *ngFor="let centro of centros | async">
         <div class="row">
@@ -102,15 +103,27 @@
               <agm-marker [latitude]="centro.location.lat" [longitude]="centro.location.lng"></agm-marker>
             </agm-map>
           </div>
-          <div class="col-md-6"> {{ centro.nombre }}
+          <div class="col-md-6">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Nombre</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" [value]="centro.nombre">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Contacto</label>
+                <div class="col-sm-10 ">
+                  <input type="text" class="form-control" value="{{getUsuario(centro.personal_id)}}"> </div>
+              </div>
+            </div>
           </div>
         </div>
-        <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="collapse navbar-collapse  pull-right" >
-              <button type="button" class="btn btn-default navbar-btn">Editar</button>
-                            <button type="button" class="btn btn-default navbar-btn">Borrar</button>
-
+        <nav class="navbar navbar-default ">
+          <div class="container-fluid ">
+            <div class="collapse navbar-collapse pull-right">
+              <button type="button " class="btn btn-default navbar-btn " (click)="edit(centro) ">Editar</button>
+              <button type="button " class="btn btn-default navbar-btn " (click)="remove(centro) ">Borrar</button>
             </div>
           </div>
         </nav>

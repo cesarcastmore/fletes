@@ -15,6 +15,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AgmCoreModule } from '@agm/core';
+import { MatTableModule } from '@angular/material/table';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   imports: [
@@ -31,7 +34,10 @@ import { AgmCoreModule } from '@agm/core';
     AgmCoreModule
     .forRoot({
       apiKey: 'AIzaSyBeOdQqfn5NvUzfEwD5Q5haXiBRR9wr7Eo'
-    })
+    }),
+    MatTableModule,
+    Angular2FontawesomeModule,
+    MatMenuModule
   ],
   declarations: [PersonalComponent, CentrosComponent, ViajesComponent]
 })

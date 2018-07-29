@@ -3,6 +3,7 @@ import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { FirestoreService, Query } from '../../services/firestore.service';
 import { Usuario } from '../../data/usuario';
+import { Empresa } from '../../data/empresa';
 
 @Component({
   selector: 'app-perfil',
@@ -12,6 +13,7 @@ import { Usuario } from '../../data/usuario';
 export class PerfilComponent implements OnInit {
 
   public perfilForm: FormGroup;
+  public empresa: Empresa;
 
   constructor(private fb: FormBuilder,
     private authService: AuthService,
@@ -24,7 +26,6 @@ export class PerfilComponent implements OnInit {
 
     this.fs.filter(query).valueChanges().subscribe(data => {
       let user: Usuario = data[0];
-      console.log(user);
       this.perfilForm = this.fb.group(user);
 
     });
@@ -35,17 +36,17 @@ export class PerfilComponent implements OnInit {
 
   ngOnInit() {
 
+    this.empresa = JSON.parse(localStorage.getItem("empresa"));
+
 
   }
 
-  public save(){
+  public save() {
     this.fs.setEntity('usuarios');
-    this.fs.update(this.perfilForm.value).subscribe(data=>{
-      
+    this.fs.update(this.perfilForm.value).subscribe(data => {
+
     });
 
   }
 
 }
-
-

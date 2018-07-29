@@ -1,8 +1,8 @@
 .bs-callout {
   padding: 20px;
   margin: 20px 0;
-  border: 1px solid #eee;
-  border-left-width: 5px;
+  border: 3px solid #eee;
+  border-left-width: 15px;
   border-radius: 3px;
 }
 
@@ -29,10 +29,18 @@
 }
 
 
-.input-group{
-	padding-bottom: 20px;
+.input-group {
+  padding-bottom: 20px;
 }
 
 agm-map {
   height: 300px;
+}
+
+.navbar-default {
+  margin-top: 15px;
+}
+
+.mat-toolbar {
+  background-color: #337ab7;
 }

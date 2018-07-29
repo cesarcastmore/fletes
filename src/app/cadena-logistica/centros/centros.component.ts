@@ -6,6 +6,8 @@ import { Http } from '@angular/http';
 
 import { Empresa } from '../../data/empresa';
 import { Centro } from '../../data/centro';
+import { Usuario } from '../../data/usuario';
+
 declare let google;
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/mergeMap';
@@ -19,23 +21,26 @@ import * as firebase from 'firebase/app';
 })
 export class CentrosComponent implements OnInit {
 
-  public isNew: boolean = false;
   @ViewChild('map') mapElement: ElementRef;
   public map: any;
 
 
   public centroForm: FormGroup;
   public centros: Observable < any[] > ;
+  public usuarios: Usuario[];
 
   public empresa: Empresa;
 
-  search: Observable < any > ;
+  public search: Observable < any > ;
   public asyncSelected: any;
 
 
   public selected: any;
 
   public current_location: any;
+  public status: string = 'list';
+  
+
 
 
   constructor(public fb: FormBuilder,
@@ -59,7 +64,10 @@ export class CentrosComponent implements OnInit {
       codigo_postal: new FormControl(),
       ciudad: new FormControl(),
       municipio: new FormControl(),
-      estado: new FormControl()
+      estado: new FormControl(),
+      id: new FormControl(),
+      personal_id: new FormControl()
+
 
     });
 
@@ -71,7 +79,10 @@ export class CentrosComponent implements OnInit {
     this.centros = this.fs.filter(query).valueChanges();
 
 
-
+    this.fs.setEntity('usuarios');
+    this.fs.filter(query).valueChanges().subscribe(usrs => {
+      this.usuarios = usrs;
+    });
 
 
   }
@@ -80,7 +91,7 @@ export class CentrosComponent implements OnInit {
   //Agregar nueva direccion
 
   public nuevo() {
-    this.isNew = true;
+    this.status = 'new';
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -101,10 +112,16 @@ export class CentrosComponent implements OnInit {
     let centro: Centro = this.centroForm.value;
     centro.empresa_id = this.empresa.id;
     centro.location = this.current_location;
+    console.log("CENTRO", centro);
 
-    this.fs.create(centro).subscribe(centro => {
-      this.centroForm.reset();
-      this.isNew = false;
+
+
+    if (this.status == 'new') {
+      this.fs.create(centro).subscribe(centro => {
+        this.centroForm.reset();
+        this.status = 'list';
+
+      });
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -112,10 +129,19 @@ export class CentrosComponent implements OnInit {
         });
       }
 
+    } else if (this.status == 'edit') {
+      console.log("update", centro);
+      this.fs.update(centro).subscribe(centro => {
+        this.centroForm.reset();
+        this.status = 'list';
+      });
 
-    });
+
+      this.asyncSelected = null;
 
 
+
+    }
 
   }
 
@@ -168,4 +194,31 @@ export class CentrosComponent implements OnInit {
 
 
   }
+
+
+  public remove(centro: Centro): void {
+    this.fs.setEntity('centros');
+    console.log("entroooo");
+    this.fs.remove(centro);
+
+  }
+
+
+  public edit(centro: Centro) {
+    console.log("EDIT", centro)
+    this.centroForm.patchValue(centro);
+    this.current_location = centro.location;
+    this.status = 'edit';
+  }
+
+
+  public getUsuario(personal_id: string): string {
+    for (let u of this.usuarios) {
+      if (personal_id == u.id) {
+        return u.nombre;
+      }
+    }
+  }
+
+
 }

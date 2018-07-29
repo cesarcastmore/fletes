@@ -140,6 +140,7 @@ export class FirestoreService {
 
 
   public remove(item: any) {
+    console.log(item);
     this.itemsCollection = this.db.collection < any > (this.entity);
     this.itemsCollection.doc(item.id).delete();
   }
