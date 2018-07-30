@@ -18,6 +18,7 @@ import { AgmCoreModule } from '@agm/core';
 import { MatTableModule } from '@angular/material/table';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import { MatMenuModule } from '@angular/material/menu';
+import { AgmDirectionModule } from 'agm-direction' // agm-direction
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { MatMenuModule } from '@angular/material/menu';
     }),
     MatTableModule,
     Angular2FontawesomeModule,
-    MatMenuModule
+    MatMenuModule,
+    AgmDirectionModule
   ],
   declarations: [PersonalComponent, CentrosComponent, ViajesComponent]
 })

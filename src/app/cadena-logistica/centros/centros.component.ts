@@ -67,8 +67,6 @@ export class CentrosComponent implements OnInit {
       estado: new FormControl(),
       id: new FormControl(),
       personal_id: new FormControl()
-
-
     });
 
     let query: Query = new Query();

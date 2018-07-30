@@ -1,3 +1,40 @@
-<p>
-  viajes works!
-</p>
+<mat-toolbar>
+  <div style="margin-left: 90%">
+    <button mat-raised-button color="info" (click)="nuevo()" *ngIf="status== 'list'">Nuevo</button>
+  </div>
+</mat-toolbar>
+<div class="container">
+  <ul class="list-group">
+    <li class="list-group-item card-nuevo" [formGroup]="directionsForm">
+      <h4>Ubicación</h4>
+      <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label>Origen</label>
+              <select class="form-control" formControlName="origen_id">
+                <option *ngFor="let c of centros" [ngValue]="c.id">{{ c.nombre }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label>Destino</label>
+              <select class="form-control" formControlName="destino_id">
+                <option *ngFor="let c of centros" [ngValue]="c.id">{{ c.nombre }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="current_location">
+          <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
+            <agm-direction  *ngIf="origen && destino" [origin]="origen" [destination]="destino">
+            </agm-direction>
+          </agm-map>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
