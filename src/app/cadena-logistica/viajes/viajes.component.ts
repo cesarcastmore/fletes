@@ -4,6 +4,7 @@ import { FirestoreService, Query } from '../../services/firestore.service';
 import { Observable } from 'rxjs';
 import { Empresa } from '../../data/empresa';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { Viaje } from '../../data/viaje';
 
 @Component({
   selector: 'app-viajes',
@@ -18,6 +19,7 @@ export class ViajesComponent implements OnInit {
   public empresa: Empresa = JSON.parse(localStorage.getItem("empresa"));
   public directionsForm: FormGroup;
   public current_location: any;
+  public viajes: Observable < any > ;
 
   public origen: any;
   public destino: any;
@@ -27,7 +29,9 @@ export class ViajesComponent implements OnInit {
     public fb: FormBuilder) {
     this.directionsForm = this.fb.group({
       origen_id: new FormControl(),
-      destino_id: new FormControl()
+      destino_id: new FormControl(),
+      fecha_inicio: new FormControl(),
+      fecha_fin: new FormControl()
     })
 
   }
@@ -41,6 +45,9 @@ export class ViajesComponent implements OnInit {
       this.centros = centros;
     });
 
+    this.fs.setEntity('viajes');
+    this.viajes = this.fs.filter(query).valueChanges();
+
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -51,22 +58,14 @@ export class ViajesComponent implements OnInit {
     this.directionsForm.valueChanges.subscribe((selectedValue) => {
 
       let form: any = this.directionsForm.value;
-
       if (form.origen_id && form.destino_id) {
         for (let centro of this.centros) {
-
           if (form.origen_id == centro.id) {
-            console.log("ORIGEN", centro.location);
-
             this.origen = centro.location;
           }
-
           if (form.destino_id == centro.id) {
-            console.log("DESTINO", centro.location);
-
             this.destino = centro.location;
           }
-
         }
       }
 
@@ -90,5 +89,51 @@ export class ViajesComponent implements OnInit {
 
 
   }
+
+  public nuevo(): void {
+    this.status = 'new';
+  }
+
+
+  public guardar(): void {
+    this.fs.setEntity('viajes');
+
+    let viaje: Viaje = this.directionsForm.value;
+    viaje.empresa_id = this.empresa.id;
+    this.fs.create(viaje).subscribe(viaje => {
+      this.directionsForm.reset();
+    });
+
+    this.status = 'list';
+
+  }
+
+
+  public getNombreCentro(id: string): string {
+    for (let i = 0; i < this.centros.length; i++) {
+      if (this.centros[i].id == id) {
+        return this.centros[i].nombre;
+      }
+    }
+  }
+
+
+    public getLocationCentro(id: string): any {
+    for (let i = 0; i < this.centros.length; i++) {
+      if (this.centros[i].id == id) {
+        return this.centros[i].location;
+      }
+    }
+  }
+
+
+  public remove(viaje: Viaje): void{
+    console.log(viaje);
+    this.fs.setEntity('viajes');
+    this.fs.remove(viaje);
+
+  }
+ 
+
 
 }

@@ -5,8 +5,8 @@
 </mat-toolbar>
 <div class="container">
   <ul class="list-group">
-    <li class="list-group-item card-nuevo" [formGroup]="directionsForm">
-      <h4>Ubicación</h4>
+    <li class="list-group-item card-nuevo" [formGroup]="directionsForm" [class.hide_list]="!(status=='new' || status=='edit') ">
+      <h4>Ruta</h4>
       <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
         <div class="row">
           <div class="col-lg-12">
@@ -30,11 +30,75 @@
         </div>
         <div *ngIf="current_location">
           <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
-            <agm-direction  *ngIf="origen && destino" [origin]="origen" [destination]="destino">
+            <agm-direction *ngIf="origen && destino" [origin]="origen" [destination]="destino">
             </agm-direction>
           </agm-map>
         </div>
       </div>
+      <h4>Fechas</h4>
+      <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Fecha Salida</label>
+              <input type="date" class="form-control" formControlName="fecha_inicio">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Fecha Entrega</label>
+              <input type="date" class="form-control" formControlName="fecha_fin">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="guardar()">Guardar</button>
+      <button class="btn btn-primary" (click)="status='list'">Cancelar</button>
+    </li>
+  </ul>
+  <ul class="list-group" *ngIf="status=='list'">
+    <li class="list-group-item" *ngFor="let viaje of viajes | async">
+      <div class="row">
+        <div class="col-md-6">
+          <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
+                <agm-direction [origin]="getLocationCentro(viaje.origen_id)" [destination]="getLocationCentro(viaje.destino_id)">
+            </agm-direction>
+          </agm-map>
+        </div>
+        <div class="col-md-6">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Origen</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" value="{{getNombreCentro(viaje.origen_id)}}" readonly>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Destino</label>
+              <div class="col-sm-10 ">
+                <input type="text" class="form-control" value="{{getNombreCentro(viaje.destino_id)}}" readonly> </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Fecha Inicio</label>
+              <div class="col-sm-10 ">
+                <input type="text" class="form-control" [value]="viaje.fecha_inicio" readonly> </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Fecha Fin</label>
+              <div class="col-sm-10 ">
+                <input type="text" class="form-control" [value]="viaje.fecha_fin" readonly> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="navbar navbar-default ">
+        <div class="container-fluid ">
+          <div class="collapse navbar-collapse pull-right">
+            <button type="button " class="btn btn-default navbar-btn " (click)="edit(viaje) ">Editar</button>
+            <button type="button " class="btn btn-default navbar-btn " (click)="remove(viaje) ">Borrar</button>
+          </div>
+        </div>
+      </nav>
     </li>
   </ul>
 </div>
