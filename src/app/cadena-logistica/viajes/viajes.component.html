@@ -27,7 +27,9 @@
               </select>
             </div>
           </div>
-        </div>
+        </div>{{
+        origen | json
+      }}
         <div *ngIf="current_location">
           <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
             <agm-direction *ngIf="origen && destino" [origin]="origen" [destination]="destino">
@@ -59,7 +61,7 @@
   <ul class="list-group" *ngIf="status=='list'">
     <li class="list-group-item" *ngFor="let viaje of viajes | async">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" *ngIf="current_location">
           <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
                 <agm-direction [origin]="getLocationCentro(viaje.origen_id)" [destination]="getLocationCentro(viaje.destino_id)">
             </agm-direction>

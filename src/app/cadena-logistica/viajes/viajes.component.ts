@@ -31,7 +31,8 @@ export class ViajesComponent implements OnInit {
       origen_id: new FormControl(),
       destino_id: new FormControl(),
       fecha_inicio: new FormControl(),
-      fecha_fin: new FormControl()
+      fecha_fin: new FormControl(),
+      id: new FormControl()
     })
 
   }
@@ -55,6 +56,13 @@ export class ViajesComponent implements OnInit {
       });
     }
 
+
+
+
+  }
+
+  public detectChanges() {
+
     this.directionsForm.valueChanges.subscribe((selectedValue) => {
 
       let form: any = this.directionsForm.value;
@@ -70,7 +78,6 @@ export class ViajesComponent implements OnInit {
       }
 
     });
-
 
   }
 
@@ -88,10 +95,15 @@ export class ViajesComponent implements OnInit {
 
 
 
+
   }
 
   public nuevo(): void {
+    this.directionsForm.reset();
+
     this.status = 'new';
+    this.detectChanges();
+
   }
 
 
@@ -100,11 +112,30 @@ export class ViajesComponent implements OnInit {
 
     let viaje: Viaje = this.directionsForm.value;
     viaje.empresa_id = this.empresa.id;
-    this.fs.create(viaje).subscribe(viaje => {
-      this.directionsForm.reset();
-    });
+
+    if (this.status == 'new') {
+      this.fs.create(viaje).subscribe(viaje => {
+        this.directionsForm.reset();
+      });
+    } else if (this.status == 'edit') {
+      this.fs.update(viaje).subscribe(viaje => {});
+    }
 
     this.status = 'list';
+
+  }
+
+
+  public edit(viaje: Viaje) {
+
+    this.directionsForm = this.fb.group(viaje);
+
+    this.origen = this.centros.find(centro => centro.id == viaje.origen_id).location;
+    this.destino = this.centros.find(centro => centro.id == viaje.destino_id).location;
+
+    this.status = 'edit';
+    this.detectChanges();
+
 
   }
 
@@ -118,7 +149,7 @@ export class ViajesComponent implements OnInit {
   }
 
 
-    public getLocationCentro(id: string): any {
+  public getLocationCentro(id: string): any {
     for (let i = 0; i < this.centros.length; i++) {
       if (this.centros[i].id == id) {
         return this.centros[i].location;
@@ -127,13 +158,13 @@ export class ViajesComponent implements OnInit {
   }
 
 
-  public remove(viaje: Viaje): void{
+  public remove(viaje: Viaje): void {
     console.log(viaje);
     this.fs.setEntity('viajes');
     this.fs.remove(viaje);
 
   }
- 
+
 
 
 }
