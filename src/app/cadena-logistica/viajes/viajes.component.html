@@ -27,9 +27,7 @@
               </select>
             </div>
           </div>
-        </div>{{
-        origen | json
-      }}
+        </div>
         <div *ngIf="current_location">
           <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
             <agm-direction *ngIf="origen && destino" [origin]="origen" [destination]="destino">

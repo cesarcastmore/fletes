@@ -6,6 +6,9 @@ export class Viaje {
   public empresa_id: string;
   public id: string;
 
+  public origen: any;
+  public destino: any;
+
 
   constructor() {
 

@@ -112,6 +112,9 @@ export class ViajesComponent implements OnInit {
 
     let viaje: Viaje = this.directionsForm.value;
     viaje.empresa_id = this.empresa.id;
+    
+    viaje.origen = this.origen;
+    viaje.destino= this.destino;
 
     if (this.status == 'new') {
       this.fs.create(viaje).subscribe(viaje => {
