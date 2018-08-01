@@ -8,6 +8,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { AsignacionComponent } from './asignacion/asignacion.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     MatCardModule
   ],
-  declarations: [ConductoresComponent, CamionesComponent]
+  declarations: [ConductoresComponent, CamionesComponent, AsignacionComponent]
 })
 export class FletesModule {}

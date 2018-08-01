@@ -90,6 +90,10 @@ export class AppComponent {
         nombre: 'Conductores',
         url: 'fletes/conductores'
       }, {
+        icon: 'fa-briefcase',
+        nombre: 'Asignacion Viajes',
+        url: 'fletes/asignacion'
+      },{
         icon: 'fa-truck',
         nombre: 'Camiones',
         url: 'fletes/camiones'
