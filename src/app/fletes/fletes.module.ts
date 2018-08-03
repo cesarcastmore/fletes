@@ -26,7 +26,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
       apiKey: 'AIzaSyBeOdQqfn5NvUzfEwD5Q5haXiBRR9wr7Eo'
     }),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmDirectionModule
 
   ],
   declarations: [ConductoresComponent, CamionesComponent, AsignacionComponent]

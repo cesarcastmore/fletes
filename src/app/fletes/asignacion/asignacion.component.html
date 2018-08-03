@@ -2,23 +2,56 @@
   <span class="text-center">Asignacion</span>
 </mat-toolbar>
 <div class="container">
-<div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="exampleInputEmail1">Conductor</label>
-      <select class="form-control">
-        <option *ngFor="let c of conductores | async" [ngValue]="c.id">{{ c.nombre }}</option>
-      </select>
-    </div>
-  </div>
-  <div class="col-md-6"></div>
-</div>
-<div class="row">
-  <div class="col-md-6" *ngIf="current_location">
-    <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
-      <agm-marker  *ngFor="let viaje of viajes | async" [latitude]="viaje.origen.lat" [longitude]="viaje.origen.lng"></agm-marker>
-    </agm-map>
-  </div>
-  <div class="col-md-6"></div>
-</div>
+  <ul class="list-group">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Conductor</label>
+            <select class="form-control">
+              <option *ngFor="let c of conductores | async" [ngValue]="c.id">{{ c.nombre }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Fecha Salida</label>
+            <input type="date" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Fecha Entrega</label>
+            <input type="date" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-md-6" *ngIf="current_location">
+          <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
+            <ng-template [ngIf]="!selectedViaje">
+              <agm-marker *ngFor="let v1 of viajes | async" [latitude]="v1.origen.lat" [longitude]="v1.origen.lng" (markerClick)="showViaje(v1)"></agm-marker>
+            </ng-template>
+            <ng-template [ngIf]="origen && destino">
+              <agm-direction [origin]="origen.location" [destination]="destino.location"></agm-direction>
+            </ng-template>
+          </agm-map>
+        </div>
+        <div class="col-md-6">
+          <ul class="list-group">
+            <li class="list-group-item" *ngIf="selectedViaje">{{selectedViaje | json}}
+              <button type="button" class="btn btn-primary" (click)="cerrarViaje()">Cerrar</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

@@ -5,6 +5,7 @@ import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Viaje } from '../../data/viaje';
 import { Observable } from 'rxjs';
 import { Empresa } from '../../data/empresa';
+import { Centro } from '../../data/centro';
 
 @Component({
   selector: 'app-asignacion',
@@ -18,7 +19,9 @@ export class AsignacionComponent implements OnInit {
   public conductores: Observable < any > ;
   public empresa: Empresa;
   public servicioForm: FormGroup;
-  public viajes:  Observable < any > ;
+  public viajes: Observable < any > ;
+
+  public selectedViaje: Viaje;
 
   constructor(private fb: FormBuilder,
     private fs: FirestoreService) {
@@ -62,5 +65,29 @@ export class AsignacionComponent implements OnInit {
 
 
   }
+
+
+
+public origen: Centro;
+public destino: Centro;
+  public showViaje(viaje: Viaje) {
+    this.selectedViaje = viaje;
+    this.fs.setEntity('centros');
+
+    this.fs.get(viaje.origen_id).subscribe(origen=>{
+      this.origen= origen;
+    })
+
+        this.fs.get(viaje.destino_id).subscribe(destino=>{
+      this.destino= destino;
+    })
+
+  }
+
+
+  public cerrarViaje() {
+    this.selectedViaje = null;
+  }
+
 
 }
