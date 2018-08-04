@@ -19,9 +19,9 @@ export class AsignacionComponent implements OnInit {
   public conductores: Observable < any > ;
   public empresa: Empresa;
   public servicioForm: FormGroup;
-  public viajes: Observable < any > ;
+  public viajes: Viaje[];
 
-  public selectedViaje: Viaje;
+  public selectedViajes: Viaje[];
 
   constructor(private fb: FormBuilder,
     private fs: FirestoreService) {
@@ -45,7 +45,9 @@ export class AsignacionComponent implements OnInit {
     this.conductores = this.fs.filter(query).valueChanges();
 
     this.fs.setEntity('viajes');
-    this.viajes = this.fs.getAll().valueChanges();
+    this.fs.getAll().valueChanges().subscribe(vs => {
+      this.viajes = vs;
+    });
 
 
 
@@ -68,25 +70,37 @@ export class AsignacionComponent implements OnInit {
 
 
 
-public origen: Centro;
-public destino: Centro;
-  public showViaje(viaje: Viaje) {
-    this.selectedViaje = viaje;
+  public origen: Centro;
+  public destino: Centro;
+  public showViajesCentro(viaje: Viaje) {
+
+    this.selectedViajes = this.viajes.map(v => {
+
+      if (viaje.origen_id == v.origen_id) {
+        console.log("entroo");
+        return v;
+      }
+    });
+
+
+  }
+
+  public elegirViaje(viaje: Viaje) {
     this.fs.setEntity('centros');
+    this.fs.get(viaje.origen_id).subscribe(origen => {
+      this.origen = origen;
+    });
 
-    this.fs.get(viaje.origen_id).subscribe(origen=>{
-      this.origen= origen;
-    })
+    this.fs.get(viaje.destino_id).subscribe(destino => {
+      this.destino = destino;
+    });
 
-        this.fs.get(viaje.destino_id).subscribe(destino=>{
-      this.destino= destino;
-    })
-
+    
   }
 
 
   public cerrarViaje() {
-    this.selectedViaje = null;
+    this.selectedViajes = [];
   }
 
 
