@@ -9,6 +9,8 @@ export class Viaje {
   public origen: any;
   public destino: any;
 
+  
+
 
   constructor() {
 

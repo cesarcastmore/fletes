@@ -13,6 +13,8 @@ import { AgmDirectionModule } from 'agm-direction';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { AgmCoreModule } from '@agm/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AsigDestinoComponent } from './asig-destino/asig-destino.component';
+import { AsigOrigenComponent } from './asig-origen/asig-origen.component';
 
 @NgModule({
   imports: [
@@ -30,6 +32,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     AgmDirectionModule
 
   ],
-  declarations: [ConductoresComponent, CamionesComponent, AsignacionComponent]
+  declarations: [ConductoresComponent, CamionesComponent, AsignacionComponent, AsigDestinoComponent, AsigOrigenComponent]
 })
 export class FletesModule {}

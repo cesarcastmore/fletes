@@ -1,0 +1,13 @@
+<div class="form-horizontal">
+  <div class="form-group">
+    <label class="col-md-2 control-label">Destino</label>
+    <div class="col-md-10">
+      <div class="input-group" *ngIf="destino">
+        <input type="text" class="form-control" [value]="destino.nombre" readonly>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="btn-group" role="group">
+  <button type="button" class="btn btn-primary" (click)="elegir()"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
+</div>

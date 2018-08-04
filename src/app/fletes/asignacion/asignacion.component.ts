@@ -21,7 +21,14 @@ export class AsignacionComponent implements OnInit {
   public servicioForm: FormGroup;
   public viajes: Viaje[];
 
-  public selectedViajes: Viaje[];
+  public selectedViajes: Viaje[] = [];
+
+  public mostrar_direcciones: boolean = false;
+  public mostrar_viajes: boolean = false;
+
+  public origen: Centro;
+
+  public destino: Centro;
 
   constructor(private fb: FormBuilder,
     private fs: FirestoreService) {
@@ -54,10 +61,9 @@ export class AsignacionComponent implements OnInit {
   }
 
 
+  //Inicializar el mapa
 
   public initMap(position: any) {
-
-    console.log(position);
 
     this.current_location = {
       lat: position.coords.latitude,
@@ -70,38 +76,41 @@ export class AsignacionComponent implements OnInit {
 
 
 
-  public origen: Centro;
-  public destino: Centro;
+  //Mostrar los centro al momento de darle clic a icono de google maps
   public showViajesCentro(viaje: Viaje) {
 
-    this.selectedViajes = this.viajes.map(v => {
+    this.fs.setEntity('centros');
+    this.fs.get(viaje.origen_id).subscribe(origen => {
+      this.origen = origen;
 
+    });
+
+    this.selectedViajes = this.viajes.filter(v => {
       if (viaje.origen_id == v.origen_id) {
-        console.log("entroo");
         return v;
       }
     });
 
+    this.mostrar_viajes= true;
+
+
 
   }
 
-  public elegirViaje(viaje: Viaje) {
-    this.fs.setEntity('centros');
-    this.fs.get(viaje.origen_id).subscribe(origen => {
-      this.origen = origen;
-    });
+  //Colocar la ruta desde el origen  
+  public mostrarRuta(destino: Centro) {
+    this.destino = destino;
+    this.mostrar_direcciones = true;
 
-    this.fs.get(viaje.destino_id).subscribe(destino => {
-      this.destino = destino;
-    });
-
-    
   }
 
 
-  public cerrarViaje() {
+  public cerrar(event) {
     this.selectedViajes = [];
+    this.mostrar_direcciones = false;
+    this.mostrar_viajes= false;
   }
+
 
 
 }
