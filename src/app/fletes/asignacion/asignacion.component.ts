@@ -3,6 +3,7 @@ import { FirestoreService, Query } from '../../services/firestore.service';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Centro, Empresa, Viaje, Usuario } from '../../data';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-asignacion',
@@ -40,20 +41,19 @@ export class AsignacionComponent implements OnInit {
     this.filtroViajesForm = this.fb.group({
       conductor_id: new FormControl(),
       fecha_inicio: new FormControl(),
-      fecha_fin: new FormControl()
     });
 
 
-    this.filtroViajesForm.valueChanges.subscribe(data => {
+    this.filtroViajesForm.valueChanges.subscribe((data: Viaje) => {
 
       this.fs.setEntity('viajes');
       let query: Query = new Query();
+      console.log("DATA ", data);
+      
       if (data.fecha_inicio) {
-        query._where('fecha_inicio', '>=', data.fecha_inicio);
+        query._where('fecha_inicio', '>', new Date(data.fecha_inicio));
       }
-      if (data.fecha_fin) {
-        query._where('fecha_fin', '<', data.fecha_fin);
-      }
+ 
       this.fs.filter(query).valueChanges().subscribe(vs => {
         vs['visible'] = true;
         this.viajes = vs;

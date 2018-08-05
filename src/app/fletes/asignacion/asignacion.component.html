@@ -23,10 +23,6 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Fecha Entrega</label>
-          <input type="date" class="form-control" formControlName="fecha_fin">
-        </div>
       </div>
       <div class="col-md-4"></div>
     </div>
@@ -35,7 +31,7 @@
     <div class="row">
       <div class="col-md-8" *ngIf="current_location">
         <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
-          <agm-marker *ngFor="let v1 of viajes" [latitude]="v1.origen.lat" [longitude]="v1.origen.lng" (markerClick)="showViajesCentro(v1)" [label]="labelOptions"  [visible]="v1.visible"></agm-marker>
+          <agm-marker *ngFor="let v1 of viajes" [latitude]="v1.origen.lat" [longitude]="v1.origen.lng" (markerClick)="showViajesCentro(v1)"  [visible]="v1.visible"></agm-marker>
           <ng-template [ngIf]="origen && destino">
             <agm-direction [origin]="origen.location" [destination]="destino.location" [visible]="mostrar_direcciones"></agm-direction>
           </ng-template>
