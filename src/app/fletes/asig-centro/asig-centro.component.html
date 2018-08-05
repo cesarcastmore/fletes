@@ -1,0 +1,75 @@
+<ul class="list-group">
+  <li class="list-group-item card-nuevo">
+    <h4>Ubicación</h4>
+    <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
+      <div *ngIf="centro">
+        <agm-map [latitude]="centro.location.lat" [longitude]="centro.location.lng">
+          <agm-marker [latitude]="centro.location.lat" [longitude]="centro.location.lng"></agm-marker>
+        </agm-map>
+      </div>
+    </div>
+    <h4>Datos</h4>
+    <div>
+      <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" class="form-control" [value]="centro.nombre" readonly>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Personal</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4>Direccion</h4>
+      <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Calle</label>
+              <input type="text" class="form-control" [value]="centro.calle" readonly>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Numero</label>
+              <input type="text" class="form-control" [value]="centro.numero" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Colonia</label>
+              <input type="text" class="form-control" [value]="centro.colonia" readonly>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Codigo Postal</label>
+              <input type="text" class="form-control" [value]="centro.codigo_postal" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Municipio</label>
+              <input type="text" class="form-control" [value]="centro.municipio" readonly>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Estado</label>
+              <input type="text" class="form-control" [value]="centro.estado" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>

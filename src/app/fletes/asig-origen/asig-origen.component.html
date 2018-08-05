@@ -10,16 +10,24 @@
   <div class="form-group" *ngIf="origen">
     <label class="col-md-2 control-label">Origen</label>
     <div class="col-md-10">
-      <div class="input-group">
-        <input type="text" class="form-control" [value]="origen.nombre" readonly>
-        <div class="input-group-btn">
-          <button type="button" class="btn btn-default" aria-label="Help"><span class="glyphicon glyphicon-question-sign"></span></button>
-        </div>
-      </div>
+      <input type="text" class="form-control" [value]="origen.nombre" readonly>
     </div>
   </div>
 </div>
 <div class="btn-group" role="group">
   <button type="button" class="btn btn-primary"><span class="
 glyphicon glyphicon-remove" aria-hidden="true" (click)="cerrar()"></span></button>
+  <button type="button" class="btn btn-primary" (click)="openModal(origen_template)"><span class="glyphicon glyphicon-info-sign"></span></button>
 </div>
+<ng-template #origen_template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{origen.nombre}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  <asig-centro [centro]="origen"></asig-centro>
+  </div>
+
+</ng-template>

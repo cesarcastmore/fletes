@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { Centro } from '../../data/centro';
 import { FirestoreService, Query } from '../../services/firestore.service';
 
 
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'asig-destino',
@@ -15,9 +17,11 @@ export class AsigDestinoComponent implements OnInit {
   @Output() elegirDestino = new EventEmitter();
 
   public destino: Centro;
+  public modalRef: BsModalRef;
 
 
-  constructor(private fs: FirestoreService) {}
+  constructor(private fs: FirestoreService,
+    private modalService: BsModalService) {}
 
   ngOnInit() {
 
@@ -33,6 +37,10 @@ export class AsigDestinoComponent implements OnInit {
   public elegir() {
   	this.elegirDestino.emit(this.destino);
 
+  }
+
+ public openModal(template: TemplateRef < any > ) {
+    this.modalRef = this.modalService.show(template);
   }
 
 

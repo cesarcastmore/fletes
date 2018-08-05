@@ -15,6 +15,8 @@ import { AgmCoreModule } from '@agm/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AsigDestinoComponent } from './asig-destino/asig-destino.component';
 import { AsigOrigenComponent } from './asig-origen/asig-origen.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AsigCentroComponent } from './asig-centro/asig-centro.component';
 
 @NgModule({
   imports: [
@@ -29,9 +31,10 @@ import { AsigOrigenComponent } from './asig-origen/asig-origen.component';
     }),
     FormsModule,
     ReactiveFormsModule,
-    AgmDirectionModule
+    AgmDirectionModule,
+    ModalModule.forRoot()
 
   ],
-  declarations: [ConductoresComponent, CamionesComponent, AsignacionComponent, AsigDestinoComponent, AsigOrigenComponent]
+  declarations: [ConductoresComponent, CamionesComponent, AsignacionComponent, AsigDestinoComponent, AsigOrigenComponent, AsigCentroComponent]
 })
 export class FletesModule {}
