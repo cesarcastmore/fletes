@@ -2,12 +2,12 @@
   <span class="text-center">Asignacion</span>
 </mat-toolbar>
 <ul class="list-group">
-  <li class="list-group-item">
+  <li class="list-group-item" [formGroup]="filtroViajesForm">
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
           <label for="exampleInputEmail1">Conductor</label>
-          <select class="form-control">
+          <select class="form-control" formControlName="conductor_id">
             <option *ngFor="let c of conductores | async" [ngValue]="c.id">{{ c.nombre }}</option>
           </select>
         </div>
@@ -19,13 +19,13 @@
       <div class="col-md-4">
         <div class="form-group">
           <label for="exampleInputEmail1">Fecha Salida</label>
-          <input type="date" class="form-control">
+          <input type="date" class="form-control" formControlName="fecha_inicio">
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <label for="exampleInputEmail1">Fecha Entrega</label>
-          <input type="date" class="form-control">
+          <input type="date" class="form-control" formControlName="fecha_fin">
         </div>
       </div>
       <div class="col-md-4"></div>

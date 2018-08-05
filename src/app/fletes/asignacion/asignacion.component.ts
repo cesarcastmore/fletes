@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from '../../data/usuario';
 import { FirestoreService, Query } from '../../services/firestore.service';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
-import { Viaje } from '../../data/viaje';
 import { Observable } from 'rxjs';
-import { Empresa } from '../../data/empresa';
-import { Centro } from '../../data/centro';
+import { Centro, Empresa, Viaje, Usuario } from '../../data';
 
 @Component({
   selector: 'app-asignacion',
@@ -29,6 +26,8 @@ export class AsignacionComponent implements OnInit {
   public origen: Centro;
   public destino: Centro;
 
+  public filtroViajesForm: FormGroup;
+
   labelOptions = {
     'background-color': 'green'
   }
@@ -36,6 +35,30 @@ export class AsignacionComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private fs: FirestoreService) {
     this.empresa = JSON.parse(localStorage.getItem("empresa"));
+
+
+    this.filtroViajesForm = this.fb.group({
+      conductor_id: new FormControl(),
+      fecha_inicio: new FormControl(),
+      fecha_fin: new FormControl()
+    });
+
+
+    this.filtroViajesForm.valueChanges.subscribe(data => {
+
+      this.fs.setEntity('viajes');
+      let query: Query = new Query();
+      if (data.fecha_inicio) {
+        query._where('fecha_inicio', '>=', data.fecha_inicio);
+      }
+      if (data.fecha_fin) {
+        query._where('fecha_fin', '<', data.fecha_fin);
+      }
+      this.fs.filter(query).valueChanges().subscribe(vs => {
+        vs['visible'] = true;
+        this.viajes = vs;
+      });
+    });
 
   }
 
@@ -123,7 +146,7 @@ export class AsignacionComponent implements OnInit {
     this.mostrar_viajes = false;
 
     for (let i = 0; i < this.viajes.length; i++) {
-      this.viajes[i]['visible'] = false;
+      this.viajes[i]['visible'] = true;
 
     }
   }

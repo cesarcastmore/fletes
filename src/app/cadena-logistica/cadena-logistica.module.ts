@@ -19,6 +19,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 import { MatMenuModule } from '@angular/material/menu';
 import { AgmDirectionModule } from 'agm-direction' // agm-direction
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { AgmDirectionModule } from 'agm-direction' // agm-direction
     MatTableModule,
     Angular2FontawesomeModule,
     MatMenuModule,
-    AgmDirectionModule
+    AgmDirectionModule,
+    BsDatepickerModule.forRoot()
   ],
   declarations: [PersonalComponent, CentrosComponent, ViajesComponent]
 })

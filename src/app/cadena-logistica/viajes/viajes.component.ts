@@ -30,7 +30,7 @@ export class ViajesComponent implements OnInit {
     this.directionsForm = this.fb.group({
       origen_id: new FormControl(),
       destino_id: new FormControl(),
-      fecha_inicio: new FormControl(),
+      fecha_inicio: new FormControl(new Date()),
       fecha_fin: new FormControl(),
       id: new FormControl()
     })
@@ -86,8 +86,6 @@ export class ViajesComponent implements OnInit {
 
   public initMap(position: any) {
 
-    console.log(position);
-
     this.current_location = {
       lat: position.coords.latitude,
       lng: position.coords.longitude
@@ -110,11 +108,19 @@ export class ViajesComponent implements OnInit {
   public guardar(): void {
     this.fs.setEntity('viajes');
 
+    this.directionsForm.patchValue({
+      fecha_inicio: new Date(this.directionsForm.value.fecha_inicio),
+      fecha_fin: new Date(this.directionsForm.value.fecha_fin),
+
+    })
+
     let viaje: Viaje = this.directionsForm.value;
     viaje.empresa_id = this.empresa.id;
-    
+
     viaje.origen = this.origen;
-    viaje.destino= this.destino;
+    viaje.destino = this.destino;
+
+
 
     if (this.status == 'new') {
       this.fs.create(viaje).subscribe(viaje => {
@@ -130,8 +136,15 @@ export class ViajesComponent implements OnInit {
 
 
   public edit(viaje: Viaje) {
-
     this.directionsForm = this.fb.group(viaje);
+
+
+
+    this.directionsForm.patchValue({
+      fecha_inicio: this.getFecha(viaje.fecha_inicio).toISOString().substring(0, 10),
+      fecha_fin: this.getFecha(viaje.fecha_fin).toISOString().substring(0, 10),
+
+    })
 
     this.origen = this.centros.find(centro => centro.id == viaje.origen_id).location;
     this.destino = this.centros.find(centro => centro.id == viaje.destino_id).location;
@@ -162,10 +175,15 @@ export class ViajesComponent implements OnInit {
 
 
   public remove(viaje: Viaje): void {
-    console.log(viaje);
     this.fs.setEntity('viajes');
     this.fs.remove(viaje);
 
+  }
+
+
+  public getFecha(date: any) {
+    let fecha: Date = date.toDate();
+    return fecha;
   }
 
 
