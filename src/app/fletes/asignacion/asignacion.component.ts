@@ -27,8 +27,11 @@ export class AsignacionComponent implements OnInit {
   public mostrar_viajes: boolean = false;
 
   public origen: Centro;
-
   public destino: Centro;
+
+  labelOptions = {
+    'background-color': 'green'
+  }
 
   constructor(private fb: FormBuilder,
     private fs: FirestoreService) {
@@ -53,6 +56,7 @@ export class AsignacionComponent implements OnInit {
 
     this.fs.setEntity('viajes');
     this.fs.getAll().valueChanges().subscribe(vs => {
+      vs['visible'] = true;
       this.viajes = vs;
     });
 
@@ -85,19 +89,26 @@ export class AsignacionComponent implements OnInit {
 
     });
 
+    for (let i = 0; i < this.viajes.length; i++) {
+      if (viaje.id != this.viajes[i].id) {
+        this.viajes[i]['visible'] = false;
+      }
+    }
+
+
     this.selectedViajes = this.viajes.filter(v => {
       if (viaje.origen_id == v.origen_id) {
         return v;
       }
     });
 
-    this.mostrar_viajes= true;
+    this.mostrar_viajes = true;
 
 
 
   }
 
-  //Colocar la ruta desde el origen  
+  //Colocar la ruta desde el origen a su destino  
   public mostrarRuta(destino: Centro) {
     this.destino = destino;
     this.mostrar_direcciones = true;
@@ -105,10 +116,16 @@ export class AsignacionComponent implements OnInit {
   }
 
 
+  //Volvera mostrar todos los centros o los origenes
   public cerrar(event) {
     this.selectedViajes = [];
     this.mostrar_direcciones = false;
-    this.mostrar_viajes= false;
+    this.mostrar_viajes = false;
+
+    for (let i = 0; i < this.viajes.length; i++) {
+      this.viajes[i]['visible'] = false;
+
+    }
   }
 
 
