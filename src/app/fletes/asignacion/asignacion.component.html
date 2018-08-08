@@ -41,12 +41,12 @@
         <h4 *ngIf="origen">Origen</h4>
         <ul class="list-group">
           <li class="list-group-item" *ngIf="origen">
-            <asig-origen [origen]="origen" (cerrarOrigen)="cerrar($event)"></asig-origen>
+            <asig-origen [origen]="origen" (cerrarOrigen)="cerrarOrigen($event)"></asig-origen>
           </li>
           <h4 *ngIf="selectedViajes.length > 0">Destinos</h4></ul>
         <ul class="list-group">
           <li class="list-group-item" *ngFor="let sv of selectedViajes">
-            <asig-destino [destino_id]="sv.destino_id" (elegirDestino)="mostrarRuta($event)"></asig-destino>
+            <asig-destino [destino_id]="sv.destino_id" (elegirDestino)="mostrarRuta($event)" (cerrarDestino)="cerrarDestino($event)"></asig-destino>
           </li>
         </ul>
       </div>

@@ -1,0 +1,43 @@
+<div class="row info">
+  <div class="col-md-8" [formGroup]="camionForm">
+    <h4>Tipo Camion</h4>
+    <select class="form-control" formControlName="tipo_camion">
+      <option *ngFor="let c of tipos_camiones" [ngValue]="c.id">{{ c.nombre }}</option>
+    </select>
+    <h4>Dimesiones de Tarima</h4>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <input type="number" class="form-control" placeholder="largo" formControlName="largo">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <input type="number" class="form-control" formControlName="ancho" placeholder="Ancho">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <input type="number" class="form-control" formControlName="alto" placeholder="Alto">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <input type="number" class="form-control" formControlName="cantidad" placeholder="Cantidad">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <input type="number" class="form-control" placeholder="Peso" formControlName="peso">
+        </div>
+      </div>
+    </div>
+    <h4>Presupuesto</h4>
+    <input type="number" class="form-control" formControlName="presupuesto">
+  </div>
+</div>
+<canvas #canvasEl width="1000" height="400"></canvas>
+<div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
+</div>

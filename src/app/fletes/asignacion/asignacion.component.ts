@@ -49,11 +49,11 @@ export class AsignacionComponent implements OnInit {
       this.fs.setEntity('viajes');
       let query: Query = new Query();
       console.log("DATA ", data);
-      
+
       if (data.fecha_inicio) {
         query._where('fecha_inicio', '>', new Date(data.fecha_inicio));
       }
- 
+
       this.fs.filter(query).valueChanges().subscribe(vs => {
         vs['visible'] = true;
         this.viajes = vs;
@@ -140,7 +140,7 @@ export class AsignacionComponent implements OnInit {
 
 
   //Volvera mostrar todos los centros o los origenes
-  public cerrar(event) {
+  public cerrarOrigen(event) {
     this.selectedViajes = [];
     this.mostrar_direcciones = false;
     this.mostrar_viajes = false;
@@ -149,6 +149,13 @@ export class AsignacionComponent implements OnInit {
       this.viajes[i]['visible'] = true;
 
     }
+  }
+
+  //Esto es para quitar los destinos y volver a escoger 
+  public cerrarDestino(event) {
+    this.mostrar_direcciones = false;
+
+
   }
 
 

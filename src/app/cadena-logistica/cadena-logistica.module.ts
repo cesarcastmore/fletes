@@ -20,6 +20,7 @@ import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawe
 import { MatMenuModule } from '@angular/material/menu';
 import { AgmDirectionModule } from 'agm-direction' // agm-direction
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { CamionComponent } from './viajes/camion/camion.component';
 
 @NgModule({
   imports: [
@@ -43,6 +44,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     AgmDirectionModule,
     BsDatepickerModule.forRoot()
   ],
-  declarations: [PersonalComponent, CentrosComponent, ViajesComponent]
+  declarations: [PersonalComponent, CentrosComponent, ViajesComponent, CamionComponent]
 })
 export class CadenaLogisticaModule {}

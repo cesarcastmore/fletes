@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Centro } from '../../data/centro';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FirestoreService, Query } from '../../services/firestore.service';
 import { Observable } from 'rxjs';
-import { Empresa } from '../../data/empresa';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
-import { Viaje } from '../../data/viaje';
-
+import { Viaje, Centro, Empresa } from '../../data';
+import { CamionComponent } from './camion/camion.component';
 @Component({
   selector: 'app-viajes',
   templateUrl: './viajes.component.html',
@@ -24,6 +22,7 @@ export class ViajesComponent implements OnInit {
   public origen: any;
   public destino: any;
 
+  @ViewChild(CamionComponent) camionComponent: CamionComponent;
 
   constructor(private fs: FirestoreService,
     public fb: FormBuilder) {
@@ -184,6 +183,16 @@ export class ViajesComponent implements OnInit {
   public getFecha(date: any) {
     let fecha: Date = date.toDate();
     return fecha;
+  }
+
+
+
+  //Metodo que prepara para agregar el camion
+  public prepararCamion(viaje: Viaje) {
+    this.status = 'camion';
+    this.camionComponent.setViaje(viaje);
+
+
   }
 
 

@@ -92,11 +92,13 @@
       <nav class="navbar navbar-default ">
         <div class="container-fluid ">
           <div class="collapse navbar-collapse pull-right">
-            <button type="button " class="btn btn-default navbar-btn " (click)="edit(viaje) ">Editar</button>
-            <button type="button " class="btn btn-default navbar-btn " (click)="remove(viaje) ">Borrar</button>
+             <button type="button " class="btn btn-default navbar-btn" (click)="prepararCamion(viaje)">Camion</button>
+            <button type="button " class="btn btn-default navbar-btn" (click)="edit(viaje) ">Editar</button>
+            <button type="button " class="btn btn-default navbar-btn" (click)="remove(viaje) ">Borrar</button>
           </div>
         </div>
       </nav>
     </li>
   </ul>
+  <viaje-camion [class.hide_list]="!(status=='camion') "></viaje-camion>
 </div>

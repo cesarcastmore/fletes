@@ -1,0 +1,19 @@
+.info{
+	margin-bottom: 20px;
+}
+
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 3px solid #eee;
+  border-left-width: 15px;
+  border-radius: 3px;
+}
+
+.bs-callout-info {
+  border-left-color: #1b809e;
+}
+
+.bs-callout-info h4 {
+  color: #1b809e;
+}

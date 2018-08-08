@@ -15,6 +15,7 @@ export class AsigDestinoComponent implements OnInit {
 
   @Input() destino_id: string;
   @Output() elegirDestino = new EventEmitter();
+  @Output() cerrarDestino= new EventEmitter();
 
   public destino: Centro;
   public modalRef: BsModalRef;
@@ -41,6 +42,10 @@ export class AsigDestinoComponent implements OnInit {
 
  public openModal(template: TemplateRef < any > ) {
     this.modalRef = this.modalService.show(template);
+  }
+
+  public cerrar(){
+    this.cerrarDestino.emit(true);
   }
 
 
