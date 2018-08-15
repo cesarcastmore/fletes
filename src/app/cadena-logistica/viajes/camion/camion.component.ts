@@ -1,5 +1,6 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Viaje } from '../../../data';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef,
+Output, EventEmitter } from '@angular/core';
+import { Viaje, Camion, Tarima } from '../../../data';
 import { FirestoreService, Query } from '../../../services/firestore.service';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { ViajesComponent } from '../viajes.component';
@@ -12,6 +13,19 @@ import { ViajesComponent } from '../viajes.component';
 export class CamionComponent implements OnInit, AfterViewInit {
 
   public viaje: Viaje;
+
+  @Output() onSave =  new EventEmitter();
+
+
+  public camion: Camion = {
+    largo: 0,
+    ancho: 0,
+    altura: 0,
+    peso: 0,
+    nombre: null
+  }
+
+  public peso_consumido: number = 0;
 
   tipos_camiones: any[] = [{
     id: '1TON',
@@ -108,7 +122,7 @@ export class CamionComponent implements OnInit, AfterViewInit {
       tipo_camion: new FormControl(),
       largo: new FormControl(),
       ancho: new FormControl(),
-      alto: new FormControl(),
+      altura: new FormControl(),
       peso: new FormControl(),
       cantidad: new FormControl(),
       presupuesto: new FormControl()
@@ -117,30 +131,32 @@ export class CamionComponent implements OnInit, AfterViewInit {
   }
 
 
-  public tarima: any;
-  public camion: any;
+  public tarima: Tarima;
 
   ngOnInit() {
 
     this.camionForm.valueChanges.subscribe(val => {
 
-      if (val.ancho && val.largo && val.alto && val.cantidad &&
-        val.cantidad && val.tipo_camion && val.peso) {
-        console.log(val);
-        let tipo_camion: any = this.tipos_camiones.find(tc => tc.id == val.tipo_camion);
+      let tipo_camion: any = this.tipos_camiones.find(tc => tc.id == val.tipo_camion);
 
-        this.camion = {
-          largo: tipo_camion.largo * this.factor,
-          ancho: this.ancho_camion * this.factor,
-          altura: this.altura_camion * this.factor,
-          peso: tipo_camion.peso,
-          peso_consumido: tipo_camion.peso - (val.cantidad * val.peso)
-        };
+
+      this.camion.largo = tipo_camion.largo * this.factor;
+      this.camion.ancho = this.ancho_camion * this.factor;
+      this.camion.altura = this.altura_camion * this.factor;
+      this.camion.peso = tipo_camion.peso;
+      this.camion.nombre = tipo_camion.id;
+
+      if (val.ancho && val.largo && val.altura && val.cantidad &&
+        val.cantidad && val.tipo_camion && val.peso) {
+
+
+        this.peso_consumido = tipo_camion.peso - (val.cantidad * val.peso);
 
         this.tarima = {
           largo: this.camionForm.value.largo * this.factor,
           ancho: this.camionForm.value.ancho * this.factor,
-          altura: this.camionForm.value.altura * this.factor
+          altura: this.camionForm.value.altura * this.factor,
+          peso: this.camionForm.value.peso
 
         }
 
@@ -199,12 +215,23 @@ export class CamionComponent implements OnInit, AfterViewInit {
 
       }
 
-
-
-
     }
 
+  }
 
+
+
+  private guardar() {
+    this.viaje.camion = this.camion;
+
+    let tarimas: Tarima[]= [];
+    tarimas.push(this.tarima);
+    this.viaje.tarimas= tarimas;
+
+    this.fs.setEntity('viajes');
+    this.fs.update(this.viaje).subscribe(viaje => {
+      this.onSave.emit(true);
+    });
   }
 
 }

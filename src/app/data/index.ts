@@ -4,3 +4,4 @@ export * from './empresa';
 export * from './menu'
 export * from './usuario'
 export * from './viaje'
+export * from './tarima'

@@ -1,3 +1,7 @@
+
+import {Camion } from './camion';
+import {Tarima } from './tarima';
+
 export class Viaje {
   public fecha_inicio: Date;
   public fecha_fin: Date;
@@ -8,6 +12,11 @@ export class Viaje {
 
   public origen: any;
   public destino: any;
+  public camion: Camion;
+
+  public presupuesto: number;
+  public tarimas: Tarima[]; 
+
 
   
 

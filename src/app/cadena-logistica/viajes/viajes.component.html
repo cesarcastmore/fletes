@@ -86,13 +86,23 @@
               <div class="col-sm-10 ">
                 <input type="date" class="form-control" [value]="getFecha(viaje.fecha_fin).toISOString().substring(0,10)" readonly> </div>
             </div>
+            <div class="form-group" *ngIf="viaje.camion">
+              <label class="col-sm-2 control-label">Camion</label>
+              <div class="col-sm-10 ">
+                <input type="text" class="form-control" [value]="viaje.camion.nombre" readonly> </div>
+            </div>
+            <div class="form-group" *ngIf="viaje.peso_consumido">
+              <label class="col-sm-2 control-label">Peso Consumido</label>
+              <div class="col-sm-10 ">
+                <input type="number" class="form-control" [value]="viaje.peso_consumido" readonly> </div>
+            </div>
           </div>
         </div>
       </div>
       <nav class="navbar navbar-default ">
         <div class="container-fluid ">
           <div class="collapse navbar-collapse pull-right">
-             <button type="button " class="btn btn-default navbar-btn" (click)="prepararCamion(viaje)">Camion</button>
+            <button type="button " class="btn btn-default navbar-btn" (click)="prepararCamion(viaje)">Camion</button>
             <button type="button " class="btn btn-default navbar-btn" (click)="edit(viaje) ">Editar</button>
             <button type="button " class="btn btn-default navbar-btn" (click)="remove(viaje) ">Borrar</button>
           </div>
@@ -100,5 +110,5 @@
       </nav>
     </li>
   </ul>
-  <viaje-camion [class.hide_list]="!(status=='camion') "></viaje-camion>
+  <viaje-camion [class.hide_list]="!(status=='camion') " (onSave)="status='list'"></viaje-camion>
 </div>
