@@ -12,7 +12,7 @@ export class Viaje {
 
   public origen: any;
   public destino: any;
-  public camion: Camion;
+  public camion_id: string;
 
   public presupuesto: number;
   public tarimas: Tarima[]; 

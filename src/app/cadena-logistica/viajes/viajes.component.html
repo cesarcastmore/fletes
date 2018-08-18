@@ -110,5 +110,7 @@
       </nav>
     </li>
   </ul>
-  <viaje-camion [class.hide_list]="!(status=='camion') " (onSave)="status='list'"></viaje-camion>
+  <ng-template [ngIf]="viaje && status== 'camion'">
+    <viaje-camion [viaje]="viaje" (onSave)="status='list'"></viaje-camion>
+  </ng-template>
 </div>

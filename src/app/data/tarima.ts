@@ -4,5 +4,6 @@ export interface Tarima {
 	ancho: number;
 	peso: number;
 	largo: number;
+	cantidad: number;
 	
 }

@@ -22,7 +22,6 @@ export class ViajesComponent implements OnInit {
   public origen: any;
   public destino: any;
 
-  @ViewChild(CamionComponent) camionComponent: CamionComponent;
 
   constructor(private fs: FirestoreService,
     public fb: FormBuilder) {
@@ -186,11 +185,12 @@ export class ViajesComponent implements OnInit {
   }
 
 
+  public viaje: Viaje;
 
   //Metodo que prepara para agregar el camion
   public prepararCamion(viaje: Viaje) {
     this.status = 'camion';
-    this.camionComponent.setViaje(viaje);
+    this.viaje = viaje;
 
 
   }
