@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FirestoreService, Query } from '../../services/firestore.service';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { Centro, Empresa, Viaje, Usuario } from '../../data';
+import { Centro, Empresa, Viaje, Usuario, Camion } from '../../data';
 import * as firebase from 'firebase/app';
+import { camiones } from '../../cadena-logistica/viajes/camion/camiones';
 
 @Component({
   selector: 'app-asignacion',
@@ -18,6 +19,7 @@ export class AsignacionComponent implements OnInit {
   public empresa: Empresa;
   public servicioForm: FormGroup;
   public viajes: Viaje[];
+  public camiones: Camion[] = camiones;
 
   public selectedViajes: Viaje[] = [];
 
@@ -41,6 +43,7 @@ export class AsignacionComponent implements OnInit {
     this.filtroViajesForm = this.fb.group({
       conductor_id: new FormControl(),
       fecha_inicio: new FormControl(),
+      camion_id: new FormControl()
     });
 
 
@@ -52,6 +55,10 @@ export class AsignacionComponent implements OnInit {
 
       if (data.fecha_inicio) {
         query._where('fecha_inicio', '>', new Date(data.fecha_inicio));
+      }
+
+      if (data.camion_id) {
+        query._where('camion_id', '==', data.camion_id);
       }
 
       this.fs.filter(query).valueChanges().subscribe(vs => {
@@ -121,6 +128,7 @@ export class AsignacionComponent implements OnInit {
 
     this.selectedViajes = this.viajes.filter(v => {
       if (viaje.origen_id == v.origen_id) {
+        v['is_show'] = true;
         return v;
       }
     });
@@ -135,6 +143,12 @@ export class AsignacionComponent implements OnInit {
   public mostrarRuta(destino: Centro) {
     this.destino = destino;
     this.mostrar_direcciones = true;
+
+    for (let i = 0; i < this.selectedViajes.length; i++) {
+      if (destino.id != this.selectedViajes[i].destino_id) {
+        this.selectedViajes[i]['is_show'] = false;
+      }
+    }
 
   }
 
@@ -154,7 +168,10 @@ export class AsignacionComponent implements OnInit {
   //Esto es para quitar los destinos y volver a escoger 
   public cerrarDestino(event) {
     this.mostrar_direcciones = false;
+    for (let i = 0; i < this.selectedViajes.length; i++) {
+      this.selectedViajes[i]['is_show'] = true;
 
+    }
 
   }
 

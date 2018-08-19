@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
-import { Centro } from '../../data/centro';
-import { FirestoreService, Query } from '../../services/firestore.service';
+import { Centro } from '../../../data/centro';
+import { FirestoreService, Query } from '../../../services/firestore.service';
 
 
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -14,6 +14,8 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 export class AsigDestinoComponent implements OnInit {
 
   @Input() destino_id: string;
+    @Input() presupuesto: number;
+
   @Output() elegirDestino = new EventEmitter();
   @Output() cerrarDestino= new EventEmitter();
 

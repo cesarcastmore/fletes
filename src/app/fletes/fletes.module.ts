@@ -13,10 +13,10 @@ import { AgmDirectionModule } from 'agm-direction';
 import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome';
 import { AgmCoreModule } from '@agm/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AsigDestinoComponent } from './asig-destino/asig-destino.component';
-import { AsigOrigenComponent } from './asig-origen/asig-origen.component';
+import { AsigDestinoComponent } from './asignacion/asig-destino/asig-destino.component';
+import { AsigOrigenComponent } from './asignacion/asig-origen/asig-origen.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { AsigCentroComponent } from './asig-centro/asig-centro.component';
+import { AsigCentroComponent } from './asignacion/asig-centro/asig-centro.component';
 
 @NgModule({
   imports: [

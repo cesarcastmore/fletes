@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FirestoreService, Query } from '../../services/firestore.service';
-import { Centro } from '../../data/centro';
+import { FirestoreService, Query } from '../../../services/firestore.service';
+import { Centro } from '../../../data/centro';
 
 @Component({
   selector: 'asig-centro',

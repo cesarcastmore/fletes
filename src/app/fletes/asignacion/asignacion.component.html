@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-md-4">
         <div class="form-group">
-          <label for="exampleInputEmail1">Conductor</label>
+          <label>Conductor</label>
           <select class="form-control" formControlName="conductor_id">
             <option *ngFor="let c of conductores | async" [ngValue]="c.id">{{ c.nombre }}</option>
           </select>
@@ -23,15 +23,22 @@
         </div>
       </div>
       <div class="col-md-4">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Camion</label>
+          <select class="form-control" formControlName="camion_id">
+            <option *ngFor="let c of camiones" [ngValue]="c.id">{{ c.nombre }}</option>
+          </select>
+        </div>
       </div>
-      <div class="col-md-4"></div>
+    </div>
+    <div class="col-md-4">
     </div>
   </li>
   <li class="list-group-item">
     <div class="row">
       <div class="col-md-8" *ngIf="current_location">
         <agm-map [latitude]="current_location.lat" [longitude]="current_location.lng">
-          <agm-marker *ngFor="let v1 of viajes" [latitude]="v1.origen.lat" [longitude]="v1.origen.lng" (markerClick)="showViajesCentro(v1)"  [visible]="v1.visible"></agm-marker>
+          <agm-marker *ngFor="let v1 of viajes" [latitude]="v1.origen.lat" [longitude]="v1.origen.lng" (markerClick)="showViajesCentro(v1)" [visible]="v1.visible"></agm-marker>
           <ng-template [ngIf]="origen && destino">
             <agm-direction [origin]="origen.location" [destination]="destino.location" [visible]="mostrar_direcciones"></agm-direction>
           </ng-template>
@@ -44,10 +51,12 @@
             <asig-origen [origen]="origen" (cerrarOrigen)="cerrarOrigen($event)"></asig-origen>
           </li>
           <h4 *ngIf="selectedViajes.length > 0">Destinos</h4></ul>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let sv of selectedViajes">
-            <asig-destino [destino_id]="sv.destino_id" (elegirDestino)="mostrarRuta($event)" (cerrarDestino)="cerrarDestino($event)"></asig-destino>
-          </li>
+        <ul class="list-group" style="height: 300px; overflow: scroll">
+          <div *ngFor="let sv of selectedViajes">
+            <li class="list-group-item" *ngIf="sv.is_show">
+              <asig-destino [destino_id]="sv.destino_id" [presupuesto]="sv.presupuesto" (elegirDestino)="mostrarRuta($event)" (cerrarDestino)="cerrarDestino($event)"></asig-destino>
+            </li>
+          </div>
         </ul>
       </div>
     </div>

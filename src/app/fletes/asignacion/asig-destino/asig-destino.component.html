@@ -1,9 +1,17 @@
 <div class="form-horizontal">
   <div class="form-group">
-    <label class="col-md-2 control-label">Destino</label>
-    <div class="col-md-10">
+    <label class="col-md-4 control-label">Destino</label>
+    <div class="col-md-8">
       <div class="input-group" *ngIf="destino">
         <input type="text" class="form-control" [value]="destino.nombre" readonly>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label">Presupuesto</label>
+    <div class="col-md-8">
+      <div class="input-group" *ngIf="destino">
+        <input type="number" class="form-control" [value]="presupuesto" readonly>
       </div>
     </div>
   </div>

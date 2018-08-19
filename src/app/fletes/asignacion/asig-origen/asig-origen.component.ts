@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
-import { Centro } from '../../data/centro';
-import { FirestoreService, Query } from '../../services/firestore.service';
-import { Empresa } from '../../data/empresa';
+import { Centro } from '../../../data/centro';
+import { FirestoreService, Query } from '../../../services/firestore.service';
+import { Empresa } from '../../../data/empresa';
 
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
