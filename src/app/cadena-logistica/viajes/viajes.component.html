@@ -111,6 +111,6 @@
     </li>
   </ul>
   <ng-template [ngIf]="viaje && status== 'camion'">
-    <viaje-camion [viaje]="viaje" (onSave)="status='list'"></viaje-camion>
+    <viaje-camion [viaje]="viaje" (onSave)="status='list'"  (onCancel)="status='list'"></viaje-camion>
   </ng-template>
 </div>

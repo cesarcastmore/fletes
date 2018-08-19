@@ -17,3 +17,8 @@
 .bs-callout-info h4 {
   color: #1b809e;
 }
+
+.warning_capacity {
+	border-color: red;
+
+}

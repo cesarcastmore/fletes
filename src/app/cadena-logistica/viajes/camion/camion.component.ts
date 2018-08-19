@@ -23,6 +23,8 @@ export class CamionComponent implements OnInit, AfterViewInit {
 
   @Input() viaje: Viaje;
   @Output() onSave = new EventEmitter();
+    @Output() onCancel = new EventEmitter();
+
 
 
   public camion: Camion;
@@ -77,6 +79,7 @@ export class CamionComponent implements OnInit, AfterViewInit {
         peso: this.tarima.peso
       });
       this.camion = camiones.find(tc => tc.id == this.viaje.camion_id);
+      this.peso_consumido = this.camion.peso - (this.tarima.peso * this.tarima.cantidad);
 
 
     }
@@ -102,9 +105,8 @@ export class CamionComponent implements OnInit, AfterViewInit {
           cantidad: this.tarimaForm.value.cantidad
         }
 
-
-
         this.draw(this.camion, this.tarima, this.tarimaForm.value.cantidad);
+        
       } else {
         this.context.clearRect(0, 0, 1000, 1000);
       }
@@ -179,6 +181,23 @@ export class CamionComponent implements OnInit, AfterViewInit {
     this.fs.update(this.viaje).subscribe(viaje => {
       this.onSave.emit(true);
     });
+  }
+
+
+  public getPorcentajeArea(): number {
+
+    let area_tarima: number = this.tarima.cantidad * (this.tarima.ancho * this.tarima.largo);
+    let area_camion: number = this.camion.ancho * this.camion.largo;
+
+    return (area_tarima / area_camion) * 100;
+
+  }
+
+
+  private cancelar(){
+
+    this.onCancel.emit(true);
+
   }
 
 }

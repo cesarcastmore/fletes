@@ -1,5 +1,5 @@
 <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
-  <div class="row info"  *ngIf="loaded">
+  <div class="row info" *ngIf="loaded">
     <div class="col-md-12" [formGroup]="tarimaForm">
       <h4>Tipo Camion</h4>
       <select class="form-control" formControlName="camion_id">
@@ -40,7 +40,7 @@
     </div>
   </div>
 </div>
-<canvas #canvasEl width="1000" height="400"></canvas>
+<canvas #canvasEl width="1000" height="300"></canvas>
 <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
   <h4>Peso</h4>
   <div class="row" *ngIf="camion">
@@ -56,7 +56,7 @@
       <div class="form-group">
         <label for="inputEmail3" class="col-sm-2 control-label">Peso Consumito</label>
         <div class="col-sm-10">
-          <input type="number" class="form-control" [value]="peso_consumido" readonly>
+          <input type="number" class="form-control" [value]="peso_consumido" [class.warning_capacity]="peso_consumido < 0 " readonly>
         </div>
       </div>
     </div>
@@ -92,5 +92,19 @@
     <div class="col-md-6 form-horizontal">
     </div>
   </div>
+    <h4>Porcentaje</h4>
+  <div class="row">
+    <div class="col-md-6 form-horizontal" *ngIf="camion">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">Porcentaje Area</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" [class.warning_capacity]="getPorcentajeArea() > 100 " [value]="getPorcentajeArea()" readonly>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 form-horizontal">
+    </div>
+  </div>
 </div>
 <button mat-raised-button color="primary" (click)="guardar()">Guardar</button>
+<button mat-raised-button color="primary" (click)="cancelar()">Cancelar</button>
