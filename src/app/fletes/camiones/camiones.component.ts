@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Empresa, Unidad } from '../../data';
+import { FirestoreService, Query } from '../../services/firestore.service';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   selector: 'app-camiones',
@@ -7,9 +12,58 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CamionesComponent implements OnInit {
 
-  constructor() { }
+  public displayedColumns = ['nombre', 'placa', 'actions'];
+  public empresa: Empresa;
+  public dataSource: Unidad[];
+  public unidadForm: FormGroup;
+  modalRef: BsModalRef;
+
+
+  constructor(private modalService: BsModalService,
+    private fs: FirestoreService,
+    private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.empresa = JSON.parse(localStorage.getItem("empresa"));
+    this.fs.setEntity('unidades');
+
+    this.fs.getAll().valueChanges().subscribe(unidades => {
+      this.dataSource = unidades;
+    })
+  }
+
+
+
+  nuevo(modal: any) {
+
+
+    this.unidadForm = this.fb.group({
+      nombre: new FormControl(),
+      placa: new FormControl(),
+      empresa_id: new FormControl(),
+      id: new FormControl()
+
+    });
+
+    modal.show();
+
+
+  }
+
+
+  public guardar(lgModal: any) {
+    this.fs.setEntity('unidades');
+
+    let unidad: Unidad = this.unidadForm.value;
+    unidad.empresa_id = this.empresa.id;
+
+
+
+    this.fs.create(unidad).subscribe(data => {
+      lgModal.hide();
+
+    });
+
   }
 
 }

@@ -1,4 +1,4 @@
-<mat-toolbar>
+<!--<mat-toolbar>
   <span class="text-center">Camiones</span>
 </mat-toolbar>
 <div class="container">
@@ -16,4 +16,62 @@
       </div>
     </li>
   </ul>
+</div>
+!-->
+<mat-toolbar>
+  <span class="text-center">Camiones</span>
+</mat-toolbar>
+<div class="empresas-card">
+  <div class="panel panel-default table-panel">
+    <div class="panel-body">
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef> Nombre de Unidad </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.nombre}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="placa">
+          <mat-header-cell *matHeaderCellDef> Placas </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.placa}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef>
+            <button mat-raised-button color="primary" (click)="nuevo(lgModal)">Nuevo</button>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" *ngIf="unidadForm">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Modal</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="lgModal.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" [formGroup]="unidadForm">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Nombre</label>
+              <input type="text" class="form-control" formControlName="nombre">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Placa</label>
+              <input type="text" class="form-control" formControlName="placa">
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="guardar(lgModal)">Guardar</button>
+      </div>
+    </div>
+  </div>
 </div>
