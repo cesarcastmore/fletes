@@ -3,8 +3,7 @@ import { FirestoreService, Query } from '../../services/firestore.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
 
-import { Usuario } from '../../data/usuario';
-import { Empresa } from '../../data/empresa';
+import { Usuario, Empresa } from '../../data';
 
 
 @Component({

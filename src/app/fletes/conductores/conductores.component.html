@@ -1,3 +1,25 @@
-<p>
-  conductores works!
-</p>
+<mat-toolbar>
+  <span class="text-center">Conductores</span>
+</mat-toolbar>
+<div class="usuarios-card">
+  <div class="panel panel-default table-panel">
+    <div class="panel-body">
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="nombre">
+          <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.nombre}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="apellido">
+          <mat-header-cell *matHeaderCellDef> Apellido </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.apellido}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="correo">
+          <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.correo}} </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>

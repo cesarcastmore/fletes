@@ -17,6 +17,7 @@ import { AsigDestinoComponent } from './asignacion/asig-destino/asig-destino.com
 import { AsigOrigenComponent } from './asignacion/asig-origen/asig-origen.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AsigCentroComponent } from './asignacion/asig-centro/asig-centro.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { AsigCentroComponent } from './asignacion/asig-centro/asig-centro.compon
     FormsModule,
     ReactiveFormsModule,
     AgmDirectionModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    MatTableModule
 
   ],
   declarations: [ConductoresComponent, CamionesComponent, AsignacionComponent, AsigDestinoComponent, AsigOrigenComponent, AsigCentroComponent]
