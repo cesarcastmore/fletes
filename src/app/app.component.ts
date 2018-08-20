@@ -95,7 +95,7 @@ export class AppComponent {
         url: 'fletes/asignacion'
       },{
         icon: 'fa-truck',
-        nombre: 'Camiones',
+        nombre: 'Unidades',
         url: 'fletes/camiones'
       }]
     } else if (permiso == 'Cadena Administrador') {
