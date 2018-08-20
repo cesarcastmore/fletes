@@ -37,8 +37,5 @@ export class AsigOrigenComponent implements OnInit {
 
   }
 
-  public openModal(template: TemplateRef < any > ) {
-    this.modalRef = this.modalService.show(template);
-  }
 
 }
