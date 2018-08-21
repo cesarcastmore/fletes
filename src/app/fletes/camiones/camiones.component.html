@@ -38,6 +38,12 @@
             <button mat-raised-button color="primary" (click)="nuevo(lgModal)">Nuevo</button>
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
+            <button mat-icon-button>
+              <fa [name]="'pencil'"></fa>
+            </button>
+              <button mat-icon-button (click)="borrar(element)">
+              <fa [name]="'trash'"></fa>
+            </button>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -62,12 +68,22 @@
               <label>Nombre</label>
               <input type="text" class="form-control" formControlName="nombre">
             </div>
+            <div class="form-group">
+              <label>Camion</label>
+              <select class="form-control" formControlName="camion_id">
+                <option *ngFor="let c of camiones" [ngValue]="c.id">{{ c.nombre }}</option>
+              </select>
+            </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label>Placa</label>
               <input type="text" class="form-control" formControlName="placa">
             </div>
+          </div>
+        </div>
+        <div clas="row">
+          <div class="col-md-6">
           </div>
         </div>
         <button class="btn btn-primary" (click)="guardar(lgModal)">Guardar</button>

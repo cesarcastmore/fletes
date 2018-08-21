@@ -1,9 +1,10 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { Empresa, Unidad } from '../../data';
+import { Empresa, Unidad, Camion } from '../../data';
 import { FirestoreService, Query } from '../../services/firestore.service';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { camiones} from '../../cadena-logistica/viajes/camion/camiones';
 
 @Component({
   selector: 'app-camiones',
@@ -17,6 +18,8 @@ export class CamionesComponent implements OnInit {
   public dataSource: Unidad[];
   public unidadForm: FormGroup;
   modalRef: BsModalRef;
+
+  public camiones: Camion[]=camiones;
 
 
   constructor(private modalService: BsModalService,
@@ -41,8 +44,8 @@ export class CamionesComponent implements OnInit {
       nombre: new FormControl(),
       placa: new FormControl(),
       empresa_id: new FormControl(),
-      id: new FormControl()
-
+      id: new FormControl(),
+      camion_id: new FormControl()
     });
 
     modal.show();
@@ -63,6 +66,15 @@ export class CamionesComponent implements OnInit {
       lgModal.hide();
 
     });
+
+  }
+
+
+  public borrar(element: any){
+    console.log(element);
+    this.fs.setEntity('unidades');
+
+    this.fs.remove(element);
 
   }
 

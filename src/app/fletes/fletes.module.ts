@@ -34,7 +34,9 @@ import { MatTableModule } from '@angular/material/table';
     ReactiveFormsModule,
     AgmDirectionModule,
     ModalModule.forRoot(),
-    MatTableModule
+    MatTableModule,
+        Angular2FontawesomeModule
+
 
   ],
   declarations: [ConductoresComponent, CamionesComponent, AsignacionComponent, AsigDestinoComponent, AsigOrigenComponent, AsigCentroComponent]
